@@ -2,7 +2,8 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 
 import Heading from './src/components/Heading';
-import NewItems from './src/components/NewItems';
+import ListedItems from './src/components/ListedItems';
+import AddItems from './src/components/AddItems';
 
 export default function App() {
 
@@ -20,7 +21,15 @@ export default function App() {
     )
   }
 
-
+  const submitInformation = (text) => {
+    setList((prevList) => {
+      return [
+        { text: text, key: Math.random().toString() },
+        ...prevList
+      ];
+    }
+    )
+  }
 
   return (
 
@@ -29,11 +38,14 @@ export default function App() {
       <Heading />
 
       <View style={styles.content}>
-        <View>
+
+        <AddItems role={submitInformation} />
+
+        <View style={styles.styleList}>
           <FlatList
             data={list}
             renderItem={({ item }) => (
-              <NewItems props={item} role={touchableItem} />
+              <ListedItems props={item} role={touchableItem} />
             )}
           />
         </View>
